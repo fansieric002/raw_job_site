@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Controllers\Controller;
 use App\Models\User;
+use App\Models\Country;
 use Respect\Validation\Validator as v; 
 
 class UsersController extends Controller{
@@ -43,9 +44,10 @@ class UsersController extends Controller{
 	public function edit($request, $response,  $args){
 	
 	    $user = User::find( $args['id']);
+		$countries = Country::all();
 
 		//only admin and the person that created the post can edit or delete this profile.
-			if(($this->auth->user()->id != $args['id']) AND ($this->auth->user()->role_id > 2) ){
+			if(($this->auth->user()->id != $args['id']) AND ($this->auth->user()->role_id > 3) ){
 
 				$this->flash->addMessage('error', 'You are not allowed to perform this action!'); 		
 				return $this->view->render($response,'users/view.twig', ['id'=>$args['id']]);
@@ -74,7 +76,7 @@ class UsersController extends Controller{
 					return $response->withRedirect($this->router->pathFor('auth.signup')); 
 				}
 
-
+  
 				 //update Data
             $user =  User::where('id', $args['id'])
                             ->update([
@@ -87,7 +89,7 @@ class UsersController extends Controller{
                                 ]);
 				
 		}
-		return $this->view->render($response,'users/edit.twig', ['user'=>$user]);
+		return $this->view->render($response,'users/edit.twig', ['user'=>$user, 'countries'=>$countries]);
 		
 	}
 

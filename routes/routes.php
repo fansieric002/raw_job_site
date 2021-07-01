@@ -15,7 +15,7 @@ $app->get('/', function($request, $response){
 	
 
 //home page
-$app->get('/', 'HomeController:index')->setName('home');
+$app->get('/', 'PostsController:index')->setName('home');
 //about page
 $app->get('/about', 'HomeController:about' )->setName('about');
 
@@ -71,7 +71,21 @@ $app->get('/posts/delete/{id}', 'PostsController:delete')->setName('posts.delete
 
 
 
+//countries routes
+$app->get('/countries/index', 'CountriesController:index')->setName('countries.index'); //Optional user_id parameter
+$app->map(['POST', 'GET'], '/countries/add/', 'CountriesController:add')->setName('countries.add');
+$app->map(['POST', 'GET'], '/countries/edit/{id}', 'CountriesController:edit')->setName('countries.edit');
+$app->get('/countries/view/{id}', 'CountriesController:view')->setName('countries.view');
+$app->get('/countries/delete/{id}', 'CountriesController:delete')->setName('countries.delete');
+
 
 })->add(new AuthMiddleware($container));
 
- 
+
+//states routes
+$app->get('/states/index', 'StatesController:index')->setName('state.index'); //Optional user_id parameter
+$app->map(['POST', 'GET'], '/states/add/', 'StatesController:add')->setName('states.add');
+$app->map(['POST', 'GET'], '/states/edit/{id}', 'StatesController:edit')->setName('sates.edit');
+$app->get('/states/view/{id}', 'StatesController:view')->setName('states.view');
+$app->get('/states/delete/{id}', 'StatesController:delete')->setName('states.delete');
+

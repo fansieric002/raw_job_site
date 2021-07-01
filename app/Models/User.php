@@ -43,4 +43,9 @@ class User extends Model
 		return $this->belongsTo('App\Models\Role');
 	}
 	
+
+	//every user belongs to a country
+		public function country(){
+		return $this->belongsTo('App\Models\Country');
+		}
 }

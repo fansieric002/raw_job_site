@@ -42,3 +42,7 @@ $container['TesterresController'] = function($container){
 $container['Testerre2sController'] = function($container){
 	return new \App\Controllers\Testerre2sController($container);
 };
+
+$container['CountriesController'] = function($container){
+	return new \App\Controllers\CountriesController($container);
+};
